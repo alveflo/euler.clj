@@ -7,20 +7,14 @@
 (ns clojure.examples.hello
     (:gen-class))
 
-(defn hello-world []
-;    (def lst (map inc (take 10 (range))))
-
-    (println (->> (range)
-         (take 10)
-         (map inc)))
-
-    (dotimes [i 9]
-      (def y (inc i))
-      (if (or (= 0 (mod y 3)) (= 0 (mod y 5)))
-        (println y)
-        ()
-      )
+(defn calc [num sum]
+  (if (= 0 num)
+    num
+    (if (or (= 0 (mod num 3)) (= 0 (mod num 5)))
+      (+ num (calc (- num 1) (+ num sum)))
+      (calc (- num 1) sum)
+    )
   )
 )
 
-(hello-world)
+(println (calc 999 0))
