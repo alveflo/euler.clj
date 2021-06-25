@@ -7,3 +7,23 @@
 ; By considering the terms in the Fibonacci sequence
 ; whose values do not exceed four million, find the
 ; sum of the even-valued terms.
+
+(defn fib [n]
+  (if (or (= n 1) (= n 2))
+    1
+    (+ (fib (- n 1)) (fib (- n 2)))
+  )
+)
+
+(defn even-fib [n sum]
+  (def res (fib n))
+  (cond
+    (= (mod res 2) 0)
+      (even-fib (+ n 1) (+ sum res))
+    (> res 4000000)
+      sum
+    :default (even-fib (+ n 1) sum)
+  )
+)
+
+(println (even-fib 1 0))
